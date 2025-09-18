@@ -1,0 +1,6 @@
+services:
+  ytdlp:
+    build: .
+    volumes:
+      - ./downloads:/app/downloads
+    restart: always
