@@ -1,18 +1,10 @@
-version: "3.8"
-
+version: "3.9"
 services:
   n8n:
     build: .
     container_name: n8n-yt-dlp
     ports:
       - "5678:5678"
-    environment:
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=yourpassword
-      - N8N_HOST=localhost
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
     volumes:
       - ./n8n_data:/home/node/.n8n
       - ./yt_downloads:/root/yt_downloads
