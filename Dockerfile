@@ -1,22 +1,22 @@
-# Use Python slim as base
-FROM python:3.11-slim
+# Dockerfile
+FROM n8nio/n8n:latest
 
-# Set working directory
-WORKDIR /app
+# Switch to root to install dependencies
+USER root
 
-# Install system dependencies
+# Install python3, pip, and yt-dlp
 RUN apt-get update && \
-    apt-get install -y ffmpeg git curl && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y python3 python3-pip && \
+    pip3 install --upgrade yt-dlp && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install yt-dlp
-RUN pip install --no-cache-dir yt-dlp
+# Switch back to n8n user
+USER node
 
-# Copy script
-COPY download.py .
+# Set default working directory
+WORKDIR /home/node/
 
-# Expose port (optional if you wrap in an API)
-EXPOSE 8000
+# Expose n8n port
+EXPOSE 5678
 
-# Run the script by default (can also run via command)
-CMD ["python", "download.py"]
+# Entrypoint remains default (n8n start)
